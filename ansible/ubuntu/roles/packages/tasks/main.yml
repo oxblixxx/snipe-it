@@ -1,0 +1,33 @@
+---
+- name: Update and upgrade existing apt packages
+  apt:
+    upgrade: yes
+    update_cache: yes
+
+- name: Install Utilities
+  apt:
+    name: "{{ packages }}"
+    state: present 
+  vars: 
+    packages:
+      - nano
+      - vim
+
+- name: Installing Apache httpd, PHP, MariaDB and other requirements.
+  apt:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - curl
+      - git
+      - unzip
+    #
+
+- name: Git checkout
+  vars:
+     app_path: "/var/www/snipe-it"
+  git:
+    repo: 'https://github.com/snipe/snipe-it.git'
+    dest:  "{{ app_path }}"
+
