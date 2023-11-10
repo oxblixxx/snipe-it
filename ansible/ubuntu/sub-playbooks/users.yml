@@ -1,0 +1,5 @@
+- name: Create users
+  hosts: snipeit
+  become: true
+  roles: 
+  - ../roles/users

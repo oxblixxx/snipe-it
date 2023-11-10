@@ -1,0 +1,14 @@
+---
+# tasks file for users
+
+- name: Create group infra-engineer
+  group:
+    name: infra-engineer
+    state: present
+
+- name: Create user ansible-user
+  user:
+    name: tunde 
+    groups: 
+    - infra-engineer 
+    - www-data
