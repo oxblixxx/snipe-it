@@ -1,38 +1,17 @@
-Role Name
-=========
 
-A brief description of the role goes here.
 
-Requirements
-------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
-Role Variables
---------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Completing AltSchool further  but the Microsoft Security and Compliance voucher would provide the specialized training needed to master Microsoft's cutting-edge security technologies. This scholarship is not just about acquiring knowledge; it signifies an investment in my potential to contribute meaningfully to the cybersecurity landscape.
 
-Dependencies
-------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
-Example Playbook
-----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Embarking on the final leg of my academic journey as a Telecommunications Science student at the University of Ilorin, AltSchool became a transformative bridge between theory and practice in my pursuit of cybersecurity expertise. AltSchool's comprehensive curriculum and hands-on approach significantly enhanced my technical skills, preparing me for the dynamic challenges of the cybersecurity landscape.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+Building on the foundation laid by AltSchool, my recent six-month internship as a Cybersecurity Analyst was a culmination of theoretical knowledge and practical application. Working in a real-world cybersecurity environment provided invaluable insights, allowing me to navigate intricate scenarios and contribute to innovative solutions. This hands-on experience solidified my commitment to cybersecurity as a career path.
 
-License
--------
+Now, as I stand on the brink of graduation, the Microsoft Security and Compliance voucher represents a golden opportunity to further elevate my skill set. The specialized training offered by Microsoft is not just about learning; it's a strategic investment in my capacity to make meaningful contributions to the ever-evolving field of cybersecurity.
 
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Receiving this scholarship would not only fortify my employability but position me as a forward-thinking professional ready to tackle the intricate challenges posed by digital security. This scholarship is not merely a credential; it's a catalyst for my continued growth and impact in the cybersecurity domain, aligning seamlessly with my aspirations to contribute to Microsoft's commitment to digital security and compliance.

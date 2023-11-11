@@ -1,10 +1,10 @@
 <VirtualHost *:80>
-    <Directory {{ app_path }}/public>
+    DocumentRoot /var/www/snipe-it/public
+    ServerName 54.237.235.164
+
+    <Directory /var/www/snipe-it/public>
         Allow From All
         AllowOverride All
         Options -Indexes
     </Directory>
-
-    DocumentRoot {{ app_path }}/public
-    ServerName {{ fqdn }}
 </VirtualHost>

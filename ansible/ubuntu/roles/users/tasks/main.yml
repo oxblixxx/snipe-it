@@ -12,3 +12,12 @@
     groups: 
     - infra-engineer 
     - www-data
+    createhome: yes
+
+- name: add sudoers file
+  copy:
+    src: ../files/tunde_sudoers
+    dest: /etc/sudoers.d/tunde
+    owner: root
+    group: root
+    mode: 0440

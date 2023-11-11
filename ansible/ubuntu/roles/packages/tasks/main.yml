@@ -12,6 +12,18 @@
     packages:
       - nano
       - vim
+      - libapache2-mod-php
+      - mariadb-client
+      - php
+      - php-curl
+      - python3-pymysql
+      - php-mysql
+      - php-gd
+      - php-ldap
+      - php-zip
+      - php-mbstring
+      - php-xml
+      - php-bcmath
 
 - name: Installing Apache httpd, PHP, MariaDB and other requirements.
   apt:

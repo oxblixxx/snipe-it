@@ -1,2 +1,3 @@
----
-# vars file for apache
+vars:
+  app_path: "/var/www/snipeit"
+  fqdn: "localhost"

@@ -1,0 +1,49 @@
+---
+- name: Set up local server
+  hosts: db
+  remote_user: ubuntu
+  become_user: root
+  become_method: sudo
+
+   #
+    # Install and Configure MariaDB
+    #
+# tasks file for database
+    - name: Install MariaDB
+      become: true
+      apt:
+        name: mariadb-server
+        state: present
+      register: sql_server
+
+    - name: Start and Enable MySQL server
+      become: true 
+      systemd:
+        state: started
+        enabled: yes
+        name: mariadb
+
+    - name: Create Vagrant mysql password
+      become: true
+      mysql_user:
+        name: vagrant
+        password: vagrant
+        login_unix_socket: /var/run/mysqld/mysqld.sock
+        priv: "*.*:ALL"
+        state: present
+
+    - name: Enable remote mysql
+      replace:
+        path: /etc/mysql/mariadb.conf.d/50-server.cnf
+        regexp: "127.0.0.1"
+        replace: "0.0.0.0" 
+      become: true         
+      notify:
+        - restart mysql
+        
+    - name: Create snipeit database
+      become: true
+      mysql_db:
+        name: snipeit
+        state: present
+        login_unix_socket: /var/run/mysqld/mysqld.sock
