@@ -1,0 +1,1 @@
+This directory is the roles directory, tasks for each play for apache, database(sql) && packages play to upgrade the distro

@@ -1,0 +1,23 @@
+---
+# tasks file for users
+
+- name: Create group infra-engineer
+  group:
+    name: infra-engineer
+    state: present
+
+- name: Create user ansible-user
+  user:
+    name: tunde 
+    groups: 
+    - infra-engineer 
+    - www-data
+    createhome: yes
+
+- name: add sudoers file
+  copy:
+    src: ../files/tunde_sudoers
+    dest: /etc/sudoers.d/tunde
+    owner: root
+    group: root
+    mode: 0440

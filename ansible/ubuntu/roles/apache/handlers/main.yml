@@ -1,0 +1,6 @@
+---
+# handlers file for apache
+- name: restart apache2
+  systemd:
+    name: apache2
+    state: restarted
