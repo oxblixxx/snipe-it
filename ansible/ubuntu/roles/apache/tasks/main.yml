@@ -1,4 +1,5 @@
 ---
+
 #Install Apache Web Server
 - name: Install Apache 2.4
   apt:
@@ -8,10 +9,6 @@
     packages:
       - apache2
     
-         
-#   become: true    
-#   register: apache2_server     
-
 - name: Start and Enable Apache2 Server
   systemd:
     name: apache2
@@ -44,17 +41,6 @@
   notify:
     - restart apache2
    
-# - name: Map apache dir to local folder
-#   vars:
-#     app_path: "/var/www/snipeit"     
-#   file:
-#     src: /vagrant
-#     dest: "{{ vars.app_path }}"
-#     state: link
-#   notify:
-#     - restart apache2
-    # Install the lastest version of composer
-    #
 - name: Composer check
   stat:
     path: /usr/local/bin/composer
@@ -86,26 +72,26 @@
   tags: file_permission
   file:
     path: /var/www/snipe-it/
-    owner: oxblixxx
+    owner: ubuntu
     group: www-data
-    mode: 0755
+    mode: 0770
     modification_time: now      
     recurse: yes
 
 
 
 
-    # Install dependencies from composer
+# Install dependencies from composer
 - name: Install dependencies from composer
-  become_user: oxblixxx
+  become_user: ubuntu
   vars:
     app_path: "/var/www/snipe-it" 
   composer:
     command: install 
     working_dir: "{{ app_path }}"
-    #
-    # Configure .env file
-    #
+
+
+# Configure .env file    
 - name: Copy .env file
   vars:
     app_path: "/var/www/snipe-it" 
@@ -117,7 +103,7 @@
 - name: Configure .env file
   vars:
     app_path: "/var/www/snipe-it" 
-    fqdn: "18.212.19.121"
+    fqdn: "54.236.29.139"
   lineinfile:
     path: "{{ vars.app_path }}/.env"
     regexp: "{{ item.regexp }}"
@@ -130,7 +116,9 @@
     - { regexp: '^APP_URL=', line: "APP_URL=http://{{ fqdn }}" }
     - { regexp: '^APP_ENV=', line: "APP_ENV=development" }
     - { regexp: '^APP_DEBUG=', line: "APP_DEBUG=true" }
-    
+
+
+#
 - name: Generate application key
   vars:
     app_path: "/var/www/snipe-it" 
