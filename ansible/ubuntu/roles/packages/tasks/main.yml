@@ -34,7 +34,17 @@
       - curl
       - git
       - unzip
-    #
+  
+  
+# Checks if the director exists
+- name: Check if destination directory exists
+  vars:
+    app_path: "/var/www/snipe-it"
+  stat:
+    path: "{{ app_path }}"
+  register: app_stat
+
+
 
 - name: Git checkout
   vars:
@@ -42,4 +52,4 @@
   git:
     repo: 'https://github.com/snipe/snipe-it.git'
     dest:  "{{ app_path }}"
-
+  when: not app_stat.stat.exists
