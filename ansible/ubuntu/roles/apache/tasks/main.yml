@@ -114,8 +114,8 @@
     - { regexp: '^DB_USERNAME=', line: 'DB_USERNAME=oxblixxx' }
     - { regexp: '^DB_PASSWORD=', line: 'DB_PASSWORD=oxblixxx' }
     - { regexp: '^APP_URL=', line: "APP_URL=http://{{ fqdn }}" }
-    - { regexp: '^APP_ENV=', line: "APP_ENV=development" }
-    - { regexp: '^APP_DEBUG=', line: "APP_DEBUG=true" }
+    - { regexp: '^APP_ENV=', line: "APP_ENV=production" }
+    - { regexp: '^APP_DEBUG=', line: "APP_DEBUG=false" }
 
 
 #
