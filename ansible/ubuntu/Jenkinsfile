@@ -13,7 +13,7 @@ pipeline {
     stage('Test') {
       steps {
         script {
-          ansiblePlaybook credentialsId: 'web-server', disableHostKeyChecking: true, installation: 'snipe-it', inventory: 'ansible/ubuntu/inventory', playbook: 'ansible/ubuntu/root-playbooks/prod.yml', vaultTmpPath: ''
+         ansiblePlaybook becomeUser: 'ubuntu', credentialsId: 'snipe-it', disableHostKeyChecking: true, installation: 'snipe-it', inventory: 'ansible/ubuntu/inventory', playbook: 'ansible/ubuntu/root-playbooks/prod.yml', sudoUser: null, vaultTmpPath: ''
         }
       }
     }
