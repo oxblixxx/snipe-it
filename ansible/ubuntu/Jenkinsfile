@@ -2,10 +2,10 @@ pipeline {
     agent any
 
   stages {
-    stage('Build') {
+    stage('GIT CHECKOUT') {
       steps {
         script {
-          sh 'echo "Building Stage"'
+          
         }
       }
     }
