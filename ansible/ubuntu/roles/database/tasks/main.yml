@@ -1,36 +1,6 @@
-- name: Install MariaDB
-  apt:
-    name: mariadb-server
-    state: present
-  register: sql_server
-    
-- name: Start and Enable MySQL server
-  become: true 
-  systemd:
-    name: mariadb
-    state: started
-    enabled: yes
+---
+- name: Include tasks for PostgreSQL setup
+  include_tasks: setup_postgresql.yml
 
-- name: Create Vagrant mysql password
-  mysql_user:
-    name: oxblixxx
-    password: oxblixxx
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-    priv: "*.*:ALL"
-    state: present
-    
-- name: Enable remote mysql
-  replace:
-    path: /etc/mysql/mariadb.conf.d/50-server.cnf
-    regexp: "127.0.0.1"
-    replace: "0.0.0.0" 
-  notify:
-    - restart mysql
-   
-   
-- name: Create snipeit database
-  mysql_db:
-    name: snipeit
-    state: present
-    login_unix_socket: /var/run/mysqld/mysqld.sock
-    #  
+# - name: Include tasks for MySQL setup
+#   include_tasks: setup_mariadb.yml

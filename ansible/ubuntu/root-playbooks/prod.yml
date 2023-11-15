@@ -2,8 +2,8 @@
 # This playbook imports playbooks from sub-playbooks directory.
 # Prod.yml is the root playbook
 
-- hosts: snipeit
-- import_playbook: ../sub-playbooks/users.yml
+# - hosts: snipeit
+# - import_playbook: ../sub-playbooks/users.yml
 
 
 - hosts: snipeit
@@ -13,5 +13,5 @@
 - import_playbook: ../sub-playbooks/database.yml
 
 
-- hosts: snipeit
-- import_playbook: ../sub-playbooks/apache.yml
+# - hosts: snipeit
+# - import_playbook: ../sub-playbooks/apache.yml
