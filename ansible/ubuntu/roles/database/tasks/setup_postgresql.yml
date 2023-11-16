@@ -39,7 +39,7 @@
         regexp: "{{ item.regexp }}"
         line: "{{ item.line }}"
       with_items:
-         - { regexp: '^local\s+all\s+postgres\s+peer', line: 'local   all            postgres                                 trust' }
+         - { regexp: '^local\s+all\s+postgres\s+(peer|md5)', line: 'local   all            postgres                                 trust' }
       register: pg_hba_result
 
 
@@ -52,8 +52,9 @@
 # Change default password of postgresql user   
     - name: Connect with psql and change password
       shell: >
-        psql -U postgres -c "ALTER USER postgres PASSWORD 'mynewpass';"
+        psql -U postgres -c "ALTER USER postgres PASSWORD 'mynewpassword';"
       become_user: ubuntu
+      run_once: true
 
 # Change the authentication mode to md5
     - name: Edit PostgreSQL conf file
@@ -75,15 +76,41 @@
 
 # Create database
 #https://docs.ansible.com/ansible/2.9/modules/postgresql_db_module.html#postgresql-db-module
-    - name: Create a new database with name "db"
-      postgresql_db:
-        name: sonar-db
+    # - name: Create a new database with name "db"
+    #   become_user: postgres
+    #   postgresql_db:
+    #     name: sonar-db
+    #     login_user: oxblixxx
+    #     login_password: oxblixxx123
 
+    - name: Create the database specified in vars
+      #become_user: postgres
+      become: true
+      tags: db
+      postgresql_db: 
+          name: sonar-db
+          login_user: postgres
+          login_password: mynewpassword
+          state: present
 
-    - name: Connect to acme database, create django user, and grant access to database and products table
-      postgresql_user:
-        db: sonar-db
-        name: oxblixxx
-        password: ceec4eif7ya
-        priv: "CONNECT/products:ALL"
-        expires: "Jan 31 2024"
+    - name: Ensure user has access to the new database
+      #become_user: postgres
+      postgresql_user: 
+          db: sonar-db
+          name: tunde
+          password: qwerty123
+          login_user: postgres
+          login_password: mynewpassword
+          state: present
+
+# https://docs.ansible.com/ansible/2.9/modules/postgresql_privs_module.html#postgresql-privs-module
+    - name: GRANT ALL PRIVILEGES ON SCHEMA public, math TO librarian
+      postgresql_privs:
+          db: sonar-db    
+          login_user: postgres
+          login_password: mynewpassword
+          privs: ALL
+          role: tunde
+          obj: ALL_IN_SCHEMA
+          type: table
+          state: present
