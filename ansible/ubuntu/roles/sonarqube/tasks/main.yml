@@ -1,2 +1,41 @@
 ---
 # tasks file for sonarqube
+- name: Install Java
+  apt:
+    name:
+      - openjdk-11-jdk
+      - openjdk-11-jre
+    state: present
+
+
+- name: Install sonarqube
+  get_url:
+    url: "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.3.zip"
+    dest: /tmp
+
+# Creates directory && skip if it aleady exists
+
+- name: Check if /opt/sonarqube directory exists
+  stat:
+    path: /opt/sonarqube
+  register: sonarqube_dir
+
+
+- name: Create /opt/sonarqube directory if it doesn't exists
+  file:
+    path: /opt/sonarqube
+    state: directory
+  when: not sonarqube_dir.stat.exists
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html
+- name: Set SonarQube version
+  set_fact:
+    sonarqube_version: "7.9.3"  # You can set this dynamically based on your needs
+
+- name: Extract SonarQube into /opt/sonarqube
+  unarchive:
+    src: "/tmp/sonarqube-{{ sonarqube_version }}.zip"
+    dest: /opt/sonarqube
+    remote_src: yes
+
+

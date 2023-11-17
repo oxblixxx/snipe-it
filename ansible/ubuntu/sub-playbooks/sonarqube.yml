@@ -1,0 +1,7 @@
+---
+- name: database
+  hosts: snipeit
+  become: true  # Optional, if your tasks require elevated privileges
+
+  roles:
+    - ../roles/sonarqube

@@ -6,11 +6,15 @@
 # - import_playbook: ../sub-playbooks/users.yml
 
 
-- hosts: snipeit
-- import_playbook: ../sub-playbooks/packages.yml
+# - hosts: snipeit
+# - import_playbook: ../sub-playbooks/packages.yml
 
-- hosts: snipeit
-- import_playbook: ../sub-playbooks/database.yml
+# - hosts: snipeit
+# - import_playbook: ../sub-playbooks/database.yml
+
+
+ - hosts: snipeit
+ - import_playbook: ../sub-playbooks/sonarqube.yml
 
 
 # - hosts: snipeit

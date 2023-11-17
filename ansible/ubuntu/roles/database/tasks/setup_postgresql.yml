@@ -74,17 +74,8 @@
         state: restarted
       when: pg_hba_result.changed   
 
-# Create database
 #https://docs.ansible.com/ansible/2.9/modules/postgresql_db_module.html#postgresql-db-module
-    # - name: Create a new database with name "db"
-    #   become_user: postgres
-    #   postgresql_db:
-    #     name: sonar-db
-    #     login_user: oxblixxx
-    #     login_password: oxblixxx123
-
-    - name: Create the database specified in vars
-      #become_user: postgres
+    - name: Create the database
       become: true
       tags: db
       postgresql_db: 
@@ -93,8 +84,8 @@
           login_password: mynewpassword
           state: present
 
-    - name: Ensure user has access to the new database
-      #become_user: postgres
+# https://docs.ansible.com/ansible/2.9/modules/postgresql_user_module.html#postgresql-user-module
+    - name: Create a user && grant access to database
       postgresql_user: 
           db: sonar-db
           name: tunde
@@ -104,7 +95,7 @@
           state: present
 
 # https://docs.ansible.com/ansible/2.9/modules/postgresql_privs_module.html#postgresql-privs-module
-    - name: GRANT ALL PRIVILEGES ON SCHEMA public, math TO librarian
+    - name: Grant All Priviledges to user
       postgresql_privs:
           db: sonar-db    
           login_user: postgres
