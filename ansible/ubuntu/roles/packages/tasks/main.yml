@@ -1,16 +1,40 @@
 ---
+
+  - name: upgrade distro
+    apt:
+      update_cache: yes
+
   - name: Install Packages
     apt:
-      name: "{{ packages }}"
+      name: "{{ item }}"
       state: present
-    vars: 
-      packages:
-        - openjdk-11-jdk
-        - openjdk-11-jre
-        - python3-pip
+    loop:
+      - openjdk-11-jdk
+      - openjdk-11-jre
+      - python3-pip
+      - php
+      - php-curl
+      - php-xml
+      - php-zip
+      - php-xmlwriter
+      - php8.1-mysql
+      - php-gd
+      - php-ldap
+      - php-zip
+      - php-mbstring
+      - php-bcmath
 
 # Install pyscorg dependecies for PostgreSQL
 # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html
   - name: Install python package
     pip:
-      name: psycopg2-binary
+      name: 
+       - psycopg2-binary
+       - pymysql
+
+  - name: Install Docker Dependecies
+    script: ./files/docker.sh    
+
+  - name: upgrade distro
+    apt:
+      update_cache: yes

@@ -1,6 +1,6 @@
 ---
-- name: Include tasks for PostgreSQL setup
-  include_tasks: setup_postgresql.yml
+# - name: Include tasks for PostgreSQL setup
+#   include_tasks: setup_postgresql.yml
 
-# - name: Include tasks for MySQL setup
-#   include_tasks: setup_mariadb.yml
+- name: Include tasks for MySQL setup
+  include_tasks: setup_mariadb.yml

@@ -1,41 +1,104 @@
 ---
 # tasks file for sonarqube
-- name: Install Java
-  apt:
-    name:
-      - openjdk-11-jdk
-      - openjdk-11-jre
-    state: present
+  - name: Copy a single file
+    copy:
+      src: ./files/docker-compose.yml
+      dest: /home/ubuntu
+
+  # - name: Install Docker Python Module
+  #   pip:
+  #     name: 
+  #       - docker == 5.0.0
+  #       - docker-compose
+  #     state: present
+  
+  # - name: Tear down existing services
+  #   docker_compose:
+  #     project_src: /home/ubuntu
+  #     build: true
+  #     state: present
+     
 
 
-- name: Install sonarqube
-  get_url:
-    url: "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.3.zip"
-    dest: /tmp
+# https://github.com/SonarSource/docker-sonarqube/issues/282
 
-# Creates directory && skip if it aleady exists
+  - name: Increase Virtual Memory
+    shell:
+      cmd: "sudo sysctl -w vm.max_map_count=262144"
 
-- name: Check if /opt/sonarqube directory exists
-  stat:
-    path: /opt/sonarqube
-  register: sonarqube_dir
+  - name: Run container
+    shell:
+      cmd: "docker-compose -f docker-compose.yml up -d"
+      chdir: /home/ubuntu
+     
+# # Install SonarQube
+# - name: Install sonarqube
+#   get_url:
+#     url: "https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-7.9.3.zip"
+#     dest: /tmp
 
-
-- name: Create /opt/sonarqube directory if it doesn't exists
-  file:
-    path: /opt/sonarqube
-    state: directory
-  when: not sonarqube_dir.stat.exists
-
-# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html
-- name: Set SonarQube version
-  set_fact:
-    sonarqube_version: "7.9.3"  # You can set this dynamically based on your needs
-
-- name: Extract SonarQube into /opt/sonarqube
-  unarchive:
-    src: "/tmp/sonarqube-{{ sonarqube_version }}.zip"
-    dest: /opt/sonarqube
-    remote_src: yes
+# # Check if Directory exists
+# - name: Check if /opt/sonarqube directory exists
+#   stat:
+#     path: /opt/sonarqube
+#   register: sonarqube_dir
 
 
+# # Creates directory && skip if it aleady exists
+# - name: Create /opt/sonarqube directory if it doesn't exists
+#   file:
+#     path: /opt/sonarqube
+#     state: directory
+#   when: not sonarqube_dir.stat.exists
+
+# # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/unarchive_module.html
+# - name: Set SonarQube version
+#   set_fact:
+#     sonarqube_version: "7.9.3"  # You can set this dynamically based on your needs
+
+# - name: Extract SonarQube into /opt/sonarqube
+#   unarchive:
+#     src: "/tmp/sonarqube-{{ sonarqube_version }}.zip"
+#     dest: /opt/sonarqube
+#     remote_src: yes
+# #  when: not sonarqube_opt_dir.stat.exists
+
+# - name: Edit SonarQube configuration file
+#   lineinfile:
+#     path: /opt/sonarqube/sonarqube-{{ sonarqube_version }}/conf/sonar.properties
+#     regexp: "{{ item.regexp }}"
+#     line: "{{ item.line }}"
+#     state: present
+#   with_items:
+#     - { regexp: '^sonar.\s+jdbc.\s+username', line: 'sonar.jdbc.username=oxblixxx'}
+#     - { regexp: '^sonar.\s+jdbc.\s+password', line: 'sonar.jdbc.password=qwerty123'}
+#     - { regexp: '^sonar.\s+jdbc.\s+url', line: 'sonar.jdbc.url=jdbc:postgresql://localhost:5432/sonarqube'}
+
+
+
+# - name: Edit SonarQube Script file
+#   lineinfile:
+#     path: /opt/sonarqube/sonarqube-{{ sonarqube_version }}/bin/linux-x86-64/sonar.sh
+#     regexp: "{{ item.regexp }}"
+#     line: "{{ item.line }}"
+#     state: present
+#   with_items:
+#     - { regexp: '^RUN\s+AS\s+USER', line: 'RUN_AS_USER=sonar'}
+
+# - name: Edit SonarQube wrapper file
+#   lineinfile:
+#     path: /opt/sonarqube/sonarqube-{{ sonarqube_version }}/conf/wrapper.conf
+#     regexp: "{{ item.regexp }}"
+#     line: "{{ item.line }}"
+#     state: present
+#   with_items:
+#     - { regexp: '^wrapper\s+java\s+command', line: 'wrapper.java.command=/usr/bin/java'}
+
+
+# - name: Create SonarQube Service
+#   template:
+#     src: sonar.service.j2
+#     dest: /etc/systemd/system/sonar.service
+
+
+  

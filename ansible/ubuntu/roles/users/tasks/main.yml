@@ -36,4 +36,4 @@
     path: /opt/sonarqube
     owner: tunde
     group: sonar
-    mode: '0644'
+    mode: '0674'

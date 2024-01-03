@@ -1,6 +1,6 @@
 ---
 - name: update packages
-  hosts: snipeit
+  hosts: sonarqube
   become: true  # Optional, if your tasks require elevated privileges
 
   roles:

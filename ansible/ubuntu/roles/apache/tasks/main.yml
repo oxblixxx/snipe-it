@@ -78,7 +78,15 @@
     modification_time: now      
     recurse: yes
 
+#https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html
 
+- name: git clone
+  git:
+    repo: https://github.com/snipe/snipe-it.git
+    dest: /var/www/snipe-it
+    force: no
+    update: no
+    
 
 
 # Install dependencies from composer
@@ -89,7 +97,7 @@
   composer:
     command: install 
     working_dir: "{{ app_path }}"
-
+    ignore_platform_reqs: true
 
 # Configure .env file    
 - name: Copy .env file
@@ -103,7 +111,7 @@
 - name: Configure .env file
   vars:
     app_path: "/var/www/snipe-it" 
-    fqdn: "54.236.29.139"
+    fqdn: "44.201.141.177"
   lineinfile:
     path: "{{ vars.app_path }}/.env"
     regexp: "{{ item.regexp }}"

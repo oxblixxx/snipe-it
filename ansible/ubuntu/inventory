@@ -1,3 +1,4 @@
 
-[snipeit]
-54.236.29.139 ansible_ssh_user="ubuntu"
+
+[sonarqube]
+44.201.141.177 ansible_ssh_user="ubuntu"
