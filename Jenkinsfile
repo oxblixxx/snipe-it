@@ -15,7 +15,6 @@ pipeline {
             }
         }
     }
-}
 
 //     // stage('Scan') {
 //     //   steps {
