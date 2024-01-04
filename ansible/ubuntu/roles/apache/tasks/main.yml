@@ -71,7 +71,7 @@
 - name: change file permissions
   tags: file_permission
   file:
-    path: /var/www/snipe-it/
+    path: /var/www/snipe-it
     owner: ubuntu
     group: www-data
     mode: 0770

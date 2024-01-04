@@ -2,18 +2,17 @@
 # This playbook imports playbooks from sub-playbooks directory.
 # Prod.yml is the root playbook
 
-- hosts: sonarqube
-- import_playbook: ../sub-playbooks/users.yml
+# - hosts: sonarqube
+# - import_playbook: ../sub-playbooks/users.yml
 
 - hosts: sonarqube
 - import_playbook: ../sub-playbooks/packages.yml
 
-# - hosts: sonarqube
-# - import_playbook: ../sub-playbooks/database.yml
+- hosts: sonarqube
+- import_playbook: ../sub-playbooks/database.yml
 
-
-# - hosts: sonarqube
-# - import_playbook: ../sub-playbooks/sonarqube.yml
+- hosts: sonarqube
+- import_playbook: ../sub-playbooks/sonarqube.yml
 
 - hosts: sonarqube
 - import_playbook: ../sub-playbooks/apache.yml

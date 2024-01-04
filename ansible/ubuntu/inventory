@@ -1,4 +1,4 @@
 
 
 [sonarqube]
-44.201.141.177 ansible_ssh_user="ubuntu"
+54.87.250.49 ansible_ssh_user="ubuntu"
