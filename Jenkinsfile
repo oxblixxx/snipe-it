@@ -7,7 +7,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonar-qube') {
-                    sh "/opt/conf/sonar-sonar.properties -Dsonar.projectKey=snipe-it -Dsonar.sources=. "
+                    sh "/opt/conf/sonar.properties -Dsonar.projectKey=snipe-it -Dsonar.sources=. "
                     // sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
