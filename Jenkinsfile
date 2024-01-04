@@ -16,7 +16,7 @@ pipeline {
                               branches: [[name: '*/snipe-it']],
                               doGenerateSubmoduleConfigurations: false,
                               extensions: [[$class: 'CleanBeforeCheckout']],
-                              userRemoteConfigs: [[credentialsId: GIT_PAT, url: "https://${githubUser}@github.com/${githubUser}/${githubRepo}.git"]]])
+                              userRemoteConfigs: [[credentialsId: GIT_PAT, url: "https://${GIT_PAT}:/${githubUser}@/${githubRepo}.git"]]])
 
                     // Echo a message to confirm successful checkout
                     echo "Successfully checked out the GitHub repository."
