@@ -7,7 +7,7 @@ pipeline {
             }
             steps {
                 withSonarQubeEnv('sonar-qube') {
-                    sh "/var/lib/jenkins/tools/hudson.plugins.sonar.SonarRunnerInstallation/sonar-qube/conf -Dsonar.projectKey=snipe-it -Dsonar.sources=. "
+                    sh "${scannerHome}/bin/sonar-scanner"
                     // sh "${scannerHome}/bin/sonar-scanner"
                 }
             }
