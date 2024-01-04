@@ -1,8 +1,5 @@
-
-
 pipeline {
     agent any
-    }
     stages {
         stage('SonarQube Quality Gate') {
             environment {
@@ -15,6 +12,9 @@ pipeline {
             }
         }
     }
+}
+
+
 
 //     // stage('Scan') {
 //     //   steps {
