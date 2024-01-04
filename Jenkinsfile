@@ -1,13 +1,14 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Check GitHub Access') {
-            steps {
-                script {
-                    echo "Successfully checked out the GitHub repository."
-                }
-            }
-        }
+  agent any
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '5'))
+  }
+  stages {
+    stage('Build') {
+      steps {
+        sh './mvnw clean install site surefire-report:report'
+        sh 'tree'
+      }
     }
+  }
 }
