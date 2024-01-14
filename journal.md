@@ -48,3 +48,11 @@ while done editing the file, do this to copy back to the running container to re
 ```sh
 docker cp file.ext <container>:/path/to/file.ext
 ```
+
+## Broken installation
+Got this error, running task `/roles/packages/files/docker.sh freezes`, so it developed this fault, I fixed it creating a task and to run it against `/roles/packages/files/docker-b.sh`. 
+
+```sh
+ FAILED! => {"changed": false, "msg": "Failed to update apt cache: W:Updating from such a repository can't be done securely, and is therefore disabled by default., W:See apt-secure(8) manpage for repository creation and user configuration details., W:GPG error: https://download.docker.com/linux/ubuntu jammy InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 7EA0A9C3F273FCD8, E:The repository 'https://download.docker.com/linux/ubuntu jammy InRelease' is not signed."}
+```
+

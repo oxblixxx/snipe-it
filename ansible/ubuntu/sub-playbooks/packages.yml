@@ -1,7 +1,8 @@
 ---
 - name: update packages
-  hosts: sonarqube
+  hosts: all
   become: true  # Optional, if your tasks require elevated privileges
-
+  gather_facts: no
+  
   roles:
     - ../roles/packages

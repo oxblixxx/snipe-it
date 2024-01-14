@@ -68,15 +68,6 @@
   args:
     creates: /usr/local/bin/composer
     
-- name: change file permissions
-  tags: file_permission
-  file:
-    path: /var/www/snipe-it
-    owner: ubuntu
-    group: www-data
-    mode: 0770
-    modification_time: now      
-    recurse: yes
 
 #https://docs.ansible.com/ansible/latest/collections/ansible/builtin/git_module.html
 
@@ -87,6 +78,15 @@
     force: no
     update: no
     
+- name: change file permissions
+  tags: file_permission
+  file:
+    path: /var/www/snipe-it
+    owner: ubuntu
+    group: www-data
+    mode: 0770
+    modification_time: now      
+    recurse: yes
 
 
 # Install dependencies from composer
@@ -111,7 +111,7 @@
 - name: Configure .env file
   vars:
     app_path: "/var/www/snipe-it" 
-    fqdn: "44.201.141.177"
+    fqdn: "54.166.215.172"
   lineinfile:
     path: "{{ vars.app_path }}/.env"
     regexp: "{{ item.regexp }}"

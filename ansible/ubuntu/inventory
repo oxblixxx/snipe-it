@@ -1,4 +1,9 @@
-
-
 [sonarqube]
-54.87.250.49 ansible_ssh_user="ubuntu"
+34.205.24.150 ansible_ssh_user="ubuntu"
+
+[web-db]
+54.166.215.172 ansible_ssh_user="ubuntu"
+
+[jenkins]
+44.201.138.210 ansible_ssh_user="ubuntu"
+

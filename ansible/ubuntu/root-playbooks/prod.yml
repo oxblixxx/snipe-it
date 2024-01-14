@@ -5,14 +5,17 @@
 # - hosts: sonarqube
 # - import_playbook: ../sub-playbooks/users.yml
 
-- hosts: sonarqube
-- import_playbook: ../sub-playbooks/packages.yml
+# - hosts: all
+# - import_playbook: ../sub-playbooks/packages.yml
 
-- hosts: sonarqube
-- import_playbook: ../sub-playbooks/database.yml
+# - hosts: web-db
+# - import_playbook: ../sub-playbooks/database.yml
 
-- hosts: sonarqube
-- import_playbook: ../sub-playbooks/sonarqube.yml
+# - hosts: sonarqube
+# - import_playbook: ../sub-playbooks/sonarqube.yml
 
-- hosts: sonarqube
-- import_playbook: ../sub-playbooks/apache.yml
+# - hosts: web-db
+# - import_playbook: ../sub-playbooks/apache.yml
+
+- hosts: jenkins
+- import_playbook: ../sub-playbooks/jenkins.yml
