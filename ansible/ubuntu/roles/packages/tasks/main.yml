@@ -1,0 +1,91 @@
+---
+
+  # - name: Broken Docker Dependecies
+  #   script: ./files/docker-b.sh   
+  - name: Add Docker repository
+    apt_repository:
+      repo: deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy InRelease
+      state: absent
+
+
+  # - name: upgrade distro
+  #   apt:
+  #     update_cache: yes
+
+
+  - name: Install Packages
+    apt:
+      name: "{{ item }}"
+      state: present
+    loop:
+      - openjdk-11-jdk
+      - openjdk-11-jre
+      - python3-pip
+      - php
+      - php-curl
+      - php-xml
+      - php-zip
+      - php-xmlwriter
+      - php8.1-mysql
+      - php-gd
+      - php-ldap
+      - php-zip
+      - php-mbstring
+      - php-bcmath
+
+# Install pyscorg dependecies for PostgreSQL
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html
+# https://www.digitalocean.com/community/tutorials/how-to-use-ansible-to-install-and-set-up-docker-on-ubuntu-20-04
+
+  - name: Install python package
+    pip:
+      name: 
+       - psycopg2-binary
+       - pymysql
+
+  # - name: Install Docker Dependecies
+  # #   script: /home/ox/snipe-it/ansible/ubuntu/roles/packages/files/docker.sh    
+
+  # - name: upgrade distro
+  #   apt:
+  #     update_cache: yes
+ 
+  - name: Install Docker dependencies
+    apt:
+      name:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg
+        - lsb-release
+      state: present
+
+  - name: Add Docker GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
+# https://docs.docker.com/engine/install/ubuntu/#uninstall-old-versions 
+ 
+  - name: Add Docker repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+      state: present
+
+  - name: Install Docker
+    apt:
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+      state: present
+
+  - name: Install Docker Compose
+    apt:
+      name: docker-compose
+      state: present
+
+      

@@ -1,7 +1,7 @@
 ---
 - name: database
-  hosts: web-db
+  hosts: sonarqube
   become: true  # Optional, if your tasks require elevated privileges
 
   roles:
-    - ../roles/database
+    - ../roles/sonarqube

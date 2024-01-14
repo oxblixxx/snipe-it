@@ -1,6 +1,6 @@
 ---
 - name: Deploying to web server
-  hosts: snipeit
+  hosts: web-db
   become: true  # Optional, if your tasks require elevated privileges
 
   roles:

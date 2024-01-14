@@ -1,0 +1,107 @@
+---
+# Module for LINE-IN-FILE
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/lineinfile_module.html
+# This task adds the PostgreSQL repository 
+    - name: Add PostgreSQL repository
+      lineinfile:
+        dest: /etc/apt/sources.list.d/pgdg.list
+        create: true
+        line: "deb http://apt.postgresql.org/pub/repos/apt/ {{ ansible_distribution_release }}-pgdg main"
+
+# Module for Apt key
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_key_module.html
+    - name: Import PostgreSQL GPG key
+      apt_key:
+        url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+
+# Install Postgresql on Debian Distro
+# https://www.postgresql.org/download/linux/debian/
+    - name: Install Postgrsql Database Server
+      apt: 
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+        - postgresql
+        - postgresql-contrib    
+
+# https://docs.ansible.com/ansible/2.9/modules/list_of_database_modules.html   
+# ChatGPT advised to update peer to md5 after this error "Peer authentication"
+# local   all             postgres                                md5
+# Respond from Craig Ringer, access pqsl with passwd
+# https://stackoverflow.com/questions/27107557/what-is-the-default-password-for-postgres
+    
+    - name: Edit PostgreSQL conf file
+      vars:
+         psql_path: /etc/postgresql/14/main/pg_hba.conf
+      lineinfile:
+        path: "{{ vars.psql_path }}"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+         - { regexp: '^local\s+all\s+postgres\s+(peer|md5)', line: 'local   all            postgres                                 trust' }
+      register: pg_hba_result
+
+
+    - name: Restart PostgreSQL
+      service:
+        name: postgresql
+        state: restarted
+      when: pg_hba_result.changed  
+
+# Change default password of postgresql user   
+    - name: Connect with psql and change password
+      shell: >
+        psql -U postgres -c "ALTER USER postgres PASSWORD 'mynewpassword';"
+      become_user: ubuntu
+      run_once: true
+
+# Change the authentication mode to md5
+    - name: Edit PostgreSQL conf file
+      vars:
+         psql_path: /etc/postgresql/14/main/pg_hba.conf
+      lineinfile:
+        path: "{{ vars.psql_path }}"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+         - { regexp: '^local\s+all\s+postgres\s+trust', line: 'local   all            postgres                                 md5' }
+      register: pg_hba_result
+
+    - name: Restart PostgreSQL
+      service:
+        name: postgresql
+        state: restarted
+      when: pg_hba_result.changed   
+
+#https://docs.ansible.com/ansible/2.9/modules/postgresql_db_module.html#postgresql-db-module
+    - name: Create the database
+      become: true
+      tags: db
+      postgresql_db: 
+          name: sonar-db
+          login_user: postgres
+          login_password: mynewpassword
+          state: present
+
+# https://docs.ansible.com/ansible/2.9/modules/postgresql_user_module.html#postgresql-user-module
+    - name: Create a user && grant access to database
+      postgresql_user: 
+          db: sonar-db
+          name: tunde
+          password: qwerty123
+          login_user: postgres
+          login_password: mynewpassword
+          state: present
+
+# https://docs.ansible.com/ansible/2.9/modules/postgresql_privs_module.html#postgresql-privs-module
+    - name: Grant All Priviledges to user
+      postgresql_privs:
+          db: sonar-db    
+          login_user: postgres
+          login_password: mynewpassword
+          privs: ALL
+          role: tunde
+          obj: ALL_IN_SCHEMA
+          type: table
+          state: present

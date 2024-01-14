@@ -1,0 +1,15 @@
+---
+# tasks file for jenkins
+  # - name: Install Jenkins from script
+  #   script: ./files/jenkins.sh
+
+  - name: Copy script to the server
+    copy:
+      src: ./files/jenkins.sh
+      dest: /home/ubuntu
+      owner: ubuntu
+      group: ubuntu
+      mode: '0744'
+
+  - name: Run jenkins script
+    command: /home/ubuntu/jenkins.sh 

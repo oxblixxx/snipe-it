@@ -1,17 +1,25 @@
 ---
 # tasks file for users
 
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/group_module.html
 - name: Create group infra-engineer
   group:
     name: infra-engineer
     state: present
 
+- name: Create group sonar
+  group:
+    name:  sonar
+    state: present    
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/user_module.html
 - name: Create user ansible-user
   user:
     name: tunde 
     groups: 
     - infra-engineer 
     - www-data
+    - sonar
     createhome: yes
 
 - name: add sudoers file
@@ -21,3 +29,11 @@
     owner: root
     group: root
     mode: 0440
+
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/file_module.html
+- name: Change file ownership, group and permissions
+  file:
+    path: /opt/sonarqube
+    owner: tunde
+    group: sonar
+    mode: '0674'
