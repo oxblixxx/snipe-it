@@ -14,8 +14,8 @@
 # - hosts: sonarqube
 # - import_playbook: ../sub-playbooks/sonarqube.yml
 
-# - hosts: web-db
-# - import_playbook: ../sub-playbooks/apache.yml
+- hosts: web-db
+- import_playbook: ../sub-playbooks/apache.yml
 
-- hosts: jenkins
-- import_playbook: ../sub-playbooks/jenkins.yml
+# - hosts: jenkins
+# - import_playbook: ../sub-playbooks/jenkins.yml
