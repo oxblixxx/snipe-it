@@ -1,6 +1,6 @@
 ---
 - name: Setup Jenkins Server
-  hosts: jenkins
+  hosts: web-db
   become: true  # Optional, if your tasks require elevated privileges
 
   roles:

@@ -17,5 +17,5 @@
 # - hosts: web-db
 # - import_playbook: ../sub-playbooks/apache.yml
 
-- hosts: jenkins
+- hosts: web-db
 - import_playbook: ../sub-playbooks/jenkins.yml

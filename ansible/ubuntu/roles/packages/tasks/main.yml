@@ -2,15 +2,15 @@
 
   # - name: Broken Docker Dependecies
   #   script: ./files/docker-b.sh   
-  - name: Add Docker repository
-    apt_repository:
-      repo: deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy InRelease
-      state: absent
+  # - name: Add Docker repository
+  #   apt_repository:
+  #     repo: deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy InRelease
+  #     state: absent
 
 
-  # - name: upgrade distro
-  #   apt:
-  #     update_cache: yes
+  - name: upgrade distro
+    apt:
+      update_cache: yes
 
 
   - name: Install Packages
